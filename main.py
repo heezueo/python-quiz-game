@@ -1,17 +1,37 @@
 from quiz import Quiz
-from quiz_game import QuizGame
 
 quiz1 = Quiz(
-    "대한민국의 수도는?",
-    ["부산", "서울", "대전", "광주"],
+    "판다가 주로 먹는 음식은 무엇일까요?",
+    ["사과", "대나무", "고기", "옥수수"],
     2
 )
 
-quiz1.display()
+quiz2 = Quiz(
+    "바다에서 가장 큰 동물은 무엇일까요?",
+    ["상어", "돌고래", "대왕오징어", "대왕고래"],
+    4
+)
 
-user_answer = int(input("정답 번호를 입력하세요: "))
+quiz3 = Quiz(
+    "캥거루가 새끼를 키우는 곳은 어디일까요?",
+    ["둥지", "굴", "주머니", "나무 위"],
+    3
+)
 
-if quiz1.check_answer(user_answer):
-    print("정답입니다!")
-else:
-    print("오답입니다.")
+quiz4 = Quiz(
+    "박쥐는 어떤 동물일까요?",
+    ["새", "곤충", "포유류", "파충류"],
+    3
+)
+
+quiz5 = Quiz(
+    "코알라가 주로 먹는 것은 무엇일까요?",
+    ["대나무", "유칼립투스 잎", "바나나", "도토리"],
+    2
+)
+
+quizzes = [quiz1, quiz2, quiz3, quiz4, quiz5]
+
+for quiz in quizzes:
+    quiz.display()
+    print()
