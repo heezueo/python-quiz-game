@@ -23,7 +23,7 @@ class QuizGame:
                 self.add_quiz()
 
             elif menu == "3":
-                print("퀴즈 목록 기능")
+                self.show_quizzes()
 
             elif menu == "4":
                 print("최고 점수 기능")
@@ -146,4 +146,14 @@ class QuizGame:
         self.quizzes.append(new_quiz)
 
         print("퀴즈가 추가되었습니다.")
-        
+
+    def show_quizzes(self):
+
+        if len(self.quizzes) == 0:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"\n📋 등록된 퀴즈 목록 (총 {len(self.quizzes)}개)\n") 
+
+        for i, quiz in enumerate(self.quizzes, start=1):
+            print(f"{i}. {quiz.question}")
