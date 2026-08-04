@@ -12,29 +12,45 @@ class QuizGame:
 
     def run(self):
 
-        while True:
+        try:
 
-            self.show_menu()
-            menu = input("메뉴를 선택하세요: ")
+            while True:
 
-            if menu == "1":
-                self.play_quiz()
+                self.show_menu()
+                menu = input("메뉴를 선택하세요: ").strip()
 
-            elif menu == "2":
-                self.add_quiz()
+                if menu == "":
+                    print("메뉴를 입력해주세요.")
+                    continue
 
-            elif menu == "3":
-                self.show_quizzes()
+                if not menu.isdigit():
+                    print("숫자만 입력해주세요.")
+                    continue
 
-            elif menu == "4":
-                self.show_best_score()
+                if menu == "1":
+                    self.play_quiz()
 
-            elif menu == "5":
-                print("프로그램을 종료합니다.")
-                break
+                elif menu == "2":
+                    self.add_quiz()
 
-            else:
-                print("잘못된 입력입니다.")
+                elif menu == "3":
+                    self.show_quizzes()
+
+                elif menu == "4":
+                    self.show_best_score()
+
+
+                elif menu == "5":
+                    self.save_data()
+                    print("프로그램을 종료합니다.")
+                    break
+
+                else:
+                    print("1~5 사이의 숫자를 입력해주세요.")
+
+        except (KeyboardInterrupt, EOFError):
+            self.save_data()
+            print("\n프로그램을 안전하게 종료합니다.")
 
     def play_quiz(self):
         print("퀴즈를 시작합니다.\n")
@@ -222,5 +238,6 @@ class QuizGame:
 
             print("데이터를 불러왔습니다.")
 
-        except FileNotFoundError:
-            print("저장된 데이터가 없습니다. 기본 퀴즈를 사용합니다.")
+        except (FileNotFoundError, json.JSONDecodeError) :
+            self.best_score = None
+            print("저장된 데이터가 없거나 손상되었습니다. 기본 퀴즈를 사용합니다.")
