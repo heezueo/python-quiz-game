@@ -14,14 +14,13 @@ class QuizGame:
         while True:
 
             self.show_menu()
-
             menu = input("메뉴를 선택하세요: ")
 
             if menu == "1":
                 self.play_quiz()
 
             elif menu == "2":
-                print("퀴즈 추가 기능")
+                self.add_quiz()
 
             elif menu == "3":
                 print("퀴즈 목록 기능")
@@ -111,3 +110,40 @@ class QuizGame:
                 2
             )
         ]
+
+    def add_quiz(self):
+        print("퀴즈 추가 기능입니다.\n")
+
+        question = input("문제를 입력하세요: ")
+
+        choice1 = input("1번 선택지를 입력하세요: ")
+        choice2 = input("2번 선택지를 입력하세요: ")
+        choice3 = input("3번 선택지를 입력하세요: ")
+        choice4 = input("4번 선택지를 입력하세요: ")
+        choices = [choice1, choice2, choice3, choice4]
+
+        print(f"입력한 문제: {question}")
+        print("\n입력한 선택지")
+
+        for i, choice in enumerate(choices, start=1):
+            print(f"{i}. {choice}")
+
+        while True:
+
+            try:
+                answer = int(input("정답 번호를 입력하세요 (1~4): "))
+                if 1 <= answer <= 4:
+                    break
+
+                else:
+                    print("1~4 사이의 숫자를 입력하세요.")
+
+            except ValueError:
+                print("숫자만 입력해주세요.")
+
+        new_quiz = Quiz(question, choices, answer)
+
+        self.quizzes.append(new_quiz)
+
+        print("퀴즈가 추가되었습니다.")
+        
