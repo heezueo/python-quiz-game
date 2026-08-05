@@ -9,7 +9,8 @@ class QuizGame:
         print("2. 퀴즈 추가")
         print("3. 퀴즈 목록")
         print("4. 최고 점수")
-        print("5. 종료")
+        print("5. 퀴즈 삭제")
+        print("6. 종료")
 
     def run(self):
 
@@ -40,20 +41,27 @@ class QuizGame:
                 elif menu == "4":
                     self.show_best_score()
 
-
                 elif menu == "5":
+                    self.delete_quiz()
+
+                elif menu == "6":
                     self.save_data()
                     print("프로그램을 종료합니다.")
                     break
 
                 else:
-                    print("1~5 사이의 숫자를 입력해주세요.")
+                    print("1~6 사이의 숫자를 입력해주세요.")
 
         except (KeyboardInterrupt, EOFError):
             self.save_data()
             print("\n프로그램을 안전하게 종료합니다.")
 
     def play_quiz(self):
+
+        if len(self.quizzes) == 0:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
         print("퀴즈를 시작합니다.\n")
 
         score = 0
@@ -211,6 +219,29 @@ class QuizGame:
 
         else:
             print(f"현재 최고 점수는 {self.best_score}점입니다.")
+
+    def delete_quiz(self):
+        if len(self.quizzes) == 0:
+            print("삭제할 퀴즈가 없습니다.")
+            return
+
+        self.show_quizzes()
+
+        while True:
+            try:
+                number = int(input("삭제할 퀴즈 번호를 입력하세요: "))
+
+                if 1 <= number <= len(self.quizzes):
+                    break
+                else:
+                    print("범위 내의 번호를 입력해주세요.")
+
+            except ValueError:
+                print("숫자만 입력해주세요.")
+
+        deleted_quiz = self.quizzes.pop(number-1)
+        print(f"'{deleted_quiz.question}' 퀴즈가 삭제되었습니다.")
+        self.save_data()
     
 
     def save_data(self):
