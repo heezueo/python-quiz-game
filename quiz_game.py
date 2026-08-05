@@ -1,5 +1,6 @@
 import json
 import random
+from datetime import datetime
 from quiz import Quiz
 class QuizGame:
 
@@ -121,7 +122,10 @@ class QuizGame:
 
         print("퀴즈가 끝났습니다!")
         print(f"총 {count}문제 중 {score}문제를 맞혔습니다.")
-        self.score_history.append(score)
+        self.score_history.append({
+            "score" : score,
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+        })
 
         if self.best_score is None or score > self.best_score:
             self.best_score = score
@@ -231,8 +235,13 @@ class QuizGame:
         if len(self.score_history) == 0:
             print("아직 플레이 기록이 없습니다.")
             return
-        
-        average = sum(self.score_history) / len(self.score_history)
+
+        total = 0
+
+        for history in self.score_history:
+            total += history["score"]
+
+        average = total / len(self.score_history)
 
         print("\n===== 📊 점수 정보 =====")
         print(f"🏆 최고 점수 : {self.best_score}점")
@@ -240,9 +249,9 @@ class QuizGame:
         print(f"📈 평균 점수 : {average:.1f}점")
 
         print("\n===== 📝 점수 기록 =====")
-        
-        for i, score in enumerate(self.score_history, start=1):
-            print(f"{i}회차 : {score}점")
+
+        for i, history in enumerate(self.score_history, start=1):
+            print(f"{i}회차 | {history['date']} | {history['score']}점")
 
     def delete_quiz(self):
         if len(self.quizzes) == 0:

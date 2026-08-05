@@ -54,21 +54,13 @@
             ],
             "answer": 2,
             "hint": "🌿 호주에 사는 동물이에요."
-        },
-        {
-            "question": "고양이는...😸",
-            "choices": [
-                "멍멍",
-                "야옹",
-                "개굴",
-                "너굴"
-            ],
-            "answer": 2,
-            "hint": "미야오"
         }
     ],
-    "best_score": 6,
+    "best_score": 0,
     "score_history": [
-        6
+        {
+            "score": 0,
+            "date": "2026-08-05 17:49"
+        }
     ]
 }
