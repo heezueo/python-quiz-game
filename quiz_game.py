@@ -61,7 +61,19 @@ class QuizGame:
         quiz_list = self.quizzes.copy()
         random.shuffle(quiz_list)
 
-        for quiz in self.quizzes:
+        while True:
+            try:
+                count = int(input(f"몇 문제를 푸시겠습니까? (1~{len(quiz_list)}): "))
+
+                if 1<= count <= len(quiz_list):
+                    break
+                else:
+                    print("범위 내의 숫자를 입력해주세요.")
+
+            except ValueError:
+                print("숫자만 입력해주세요.")
+
+        for quiz in quiz_list[:count]:
 
             quiz.display()
 
@@ -92,11 +104,11 @@ class QuizGame:
             else:
                 print("오답입니다.\n")
 
-            input("Enter를 누르면 다음 문제로 넘어갑니다...🦭 ")
+            input("Enter를 누르면 넘어갑니다...🦭 ")
             print()
 
         print("퀴즈가 끝났습니다!")
-        print(f"총 {len(self.quizzes)}문제 중 {score}문제를 맞혔습니다.")
+        print(f"총 {count}문제 중 {score}문제를 맞혔습니다.")
 
         if self.best_score is None or score > self.best_score:
             self.best_score = score
