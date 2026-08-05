@@ -1,8 +1,9 @@
 class Quiz:
-    def __init__(self, question, choices, answer):
+    def __init__(self, question, choices, answer, hint):
         self.question = question
         self.choices = choices
         self.answer = answer
+        self.hint = hint
 
     def display(self):
         print(f"문제: {self.question}")
@@ -17,5 +18,6 @@ class Quiz:
         return {
             "question" : self.question,
             "choices" : self.choices,
-            "answer" : self.answer
+            "answer" : self.answer,
+            "hint": self.hint
         }
