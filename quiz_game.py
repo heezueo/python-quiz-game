@@ -256,11 +256,14 @@ class QuizGame:
         print("퀴즈 추가 기능입니다.\n")
 
         # 문제 입력
-        question = input("문제를 입력하세요: ").strip()
+        while True:
+            question = input("문제를 입력하세요: ").strip()
 
-        if question == "":
+            if question:
+                break
+
             print("문제는 비워둘 수 없습니다.")
-            return
+
 
         # 선택지 입력
         choices = []

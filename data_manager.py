@@ -1,76 +1,70 @@
 import json
+import os
 
 
-# JSON 파일에 게임 데이터를 저장하는 함수
-def save_data(quizzes, best_score, score_history):
-    # Quiz 객체를 JSON에 저장할 수 있는 딕셔너리로 변환
-    quiz_list = []
+class DataManager:
 
-    for quiz in quizzes:
-        quiz_list.append(quiz.to_dict())
+    def __init__(self, filename="state.json"):
+        self.filename = filename
 
-    # 저장할 데이터 구성
-    data = {
-        "quizzes": quiz_list,
-        "best_score": best_score,
-        "score_history": score_history
-    }
+    # 데이터 저장
+    def save_data(self, quizzes, best_score, score_history):
 
-    try:
-        # state.json 파일에 데이터 저장
-        with open(
-            "state.json",
-            "w",
-            encoding="utf-8"
-        ) as file:
+        quiz_list = []
 
-            json.dump(
-                data,
-                file,
-                ensure_ascii=False,
-                indent=4
-            )
+        for quiz in quizzes:
+            quiz_list.append(quiz.to_dict())
 
-        print("데이터를 저장했습니다.")
-        return True
+        data = {
+            "quizzes": quiz_list,
+            "best_score": best_score,
+            "score_history": score_history
+        }
 
-    except OSError as error:
-        print(f"데이터 저장에 실패했습니다: {error}")
-        return False
+        try:
+            with open(
+                self.filename,
+                "w",
+                encoding="utf-8"
+            ) as file:
+
+                json.dump(
+                    data,
+                    file,
+                    ensure_ascii=False,
+                    indent=4
+                )
+
+            return True
+
+        except OSError as e:
+
+            print(f"⚠️ 데이터 저장 실패: {e}")
+            return False
 
 
-# JSON 파일에서 게임 데이터를 불러오는 함수
-def load_data():
+    # 데이터 불러오기
+    def load_data(self):
 
-    try:
-        # state.json 파일 열기
-        with open(
-            "state.json",
-            "r",
-            encoding="utf-8"
-        ) as file:
+        try:
 
-            data = json.load(file)
+            with open(
+                self.filename,
+                "r",
+                encoding="utf-8"
+            ) as file:
 
-        return data
+                return json.load(file)
 
-    except FileNotFoundError:
-        print(
-            "저장된 데이터가 없습니다. "
-            "기본 퀴즈를 사용합니다."
-        )
-        return None
+        except FileNotFoundError:
 
-    except json.JSONDecodeError:
-        print(
-            "저장된 데이터가 손상되었습니다. "
-            "기본 퀴즈를 사용합니다."
-        )
-        return None
+            return None
 
-    except (KeyError, TypeError):
-        print(
-            "저장된 데이터 형식이 올바르지 않습니다. "
-            "기본 퀴즈를 사용합니다."
-        )
-        return None
+        except json.JSONDecodeError:
+
+            return None
+
+        except OSError as e:
+
+            print(f"⚠️ 데이터 불러오기 실패: {e}")
+            return None
