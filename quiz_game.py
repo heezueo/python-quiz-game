@@ -3,7 +3,6 @@ from datetime import datetime
 from quiz import Quiz
 from data_manager import DataManager
 
-
 class QuizGame:
 
     # ==============================
